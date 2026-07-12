@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Fourth Shift Sync",
+  "version": "1.0.1",
+  "description": "Sync Fourth shifts to Apple Calendar on demand.",
+  "icons": {
+    "16": "Icons/icon-16.png",
+    "32": "Icons/icon-32.png",
+    "48": "Icons/icon-48.png",
+    "96": "Icons/icon-96.png",
+    "128": "Icons/icon-128.png",
+    "256": "Icons/icon-256.png"
+  },
+  "permissions": [
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "https://api.fourth.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://api.fourth.com/myschedules/*"
+      ],
+      "js": [
+        "schedule.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ]
+    }
+  ]
+}
