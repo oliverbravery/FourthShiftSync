@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Fourth Shift Sync",
-  "version": "1.0.1",
-  "description": "Sync Fourth shifts to Apple Calendar on demand.",
+  "version": "1.1.0",
+  "description": "Sync your Fourth schedule to Apple Calendar and a Google Sheet.",
   "icons": {
     "16": "Icons/icon-16.png",
     "32": "Icons/icon-32.png",
@@ -12,10 +12,13 @@
     "256": "Icons/icon-256.png"
   },
   "permissions": [
-    "nativeMessaging"
+    "nativeMessaging",
+    "storage"
   ],
   "host_permissions": [
-    "https://api.fourth.com/*"
+    "https://api.fourth.com/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
   ],
   "background": {
     "service_worker": "background.js"

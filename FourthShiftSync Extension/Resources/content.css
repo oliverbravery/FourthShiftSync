@@ -12,7 +12,14 @@
   box-sizing: border-box;
 }
 
-.fourth-sync-button {
+.fourth-sync-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.fourth-sync-button,
+.fourth-sync-settings-button {
   background: #12633b;
   border: 0;
   border-radius: 999px;
@@ -22,6 +29,10 @@
   font: inherit;
   font-weight: 650;
   padding: 11px 17px;
+}
+
+.fourth-sync-settings-button {
+  padding: 11px 14px;
 }
 
 .fourth-sync-button:disabled {
@@ -61,6 +72,45 @@
   font: 22px/1 inherit;
 }
 
+.fourth-sync-results h3 {
+  color: #55625a;
+  font-size: 12px;
+  letter-spacing: .05em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.fourth-sync-results section + section,
+.fourth-sync-settings {
+  border-top: 1px solid #e5eae7;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.fourth-sync-settings label {
+  color: #55625a;
+  display: block;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.fourth-sync-settings a {
+  color: #12633b;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.fourth-sync-settings input {
+  border: 1px solid #d7ded9;
+  border-radius: 8px;
+  color: #15231b;
+  display: block;
+  font: inherit;
+  margin-top: 4px;
+  padding: 7px 9px;
+  width: 100%;
+}
+
 .fourth-sync-results details + details {
   margin-top: 8px;
 }
@@ -89,6 +139,10 @@
 .fourth-sync-results p {
   color: #66736b;
   margin: 10px 0 0;
+}
+
+.fourth-sync-results .fourth-sync-failure {
+  color: #a12b2b;
 }
 
 .fourth-sync-error {
