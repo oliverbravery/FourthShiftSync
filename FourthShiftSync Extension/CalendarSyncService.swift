@@ -2,7 +2,6 @@ import EventKit
 
 @MainActor
 final class CalendarSyncService {
-    private let calendarTitle = "Greene King Shifts"
     private let eventStore = EKEventStore()
     private let timeZone = TimeZone(identifier: "Europe/London")!
     private lazy var fourthDateFormatter = dateFormatter("yyyy-MM-dd'T'HH:mm:ss")
@@ -17,7 +16,7 @@ final class CalendarSyncService {
 
     func sync(_ request: SyncRequest) async throws -> CalendarChanges {
         try await authoriseCalendar()
-        let managedCalendar = try managedCalendar()
+        let managedCalendar = try managedCalendar(named: request.calendarName)
         let rangeStart = try parseDay(request.syncStart)
         let rangeEnd = try parseDay(request.syncEnd)
         let predicate = eventStore.predicateForEvents(withStart: rangeStart, end: rangeEnd, calendars: [managedCalendar])
@@ -76,8 +75,8 @@ final class CalendarSyncService {
         }
     }
 
-    private func managedCalendar() throws -> EKCalendar {
-        if let calendar = eventStore.calendars(for: .event).first(where: { $0.title == calendarTitle }) {
+    private func managedCalendar(named title: String) throws -> EKCalendar {
+        if let calendar = eventStore.calendars(for: .event).first(where: { $0.title == title }) {
             return calendar
         }
 
@@ -86,7 +85,7 @@ final class CalendarSyncService {
         }
 
         let calendar = EKCalendar(for: .event, eventStore: eventStore)
-        calendar.title = calendarTitle
+        calendar.title = title
         calendar.source = source
         calendar.cgColor = CGColor(red: 0.07, green: 0.39, blue: 0.23, alpha: 1)
         try eventStore.saveCalendar(calendar, commit: true)

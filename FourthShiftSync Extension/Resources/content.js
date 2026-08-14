@@ -1,5 +1,6 @@
 (() => {
-  const storageKeys = ["endpoint", "spreadsheetUrl", "startupShown"]
+  const defaultCalendarName = "Fourth"
+  const storageKeys = ["calendarName", "endpoint", "spreadsheetUrl", "startupShown"]
   const root = document.createElement("aside")
   root.id = "fourth-shift-sync"
   root.innerHTML = `
@@ -63,6 +64,7 @@
       ${targets.map(targetSection).join("")}
       <details class="fourth-sync-settings" ${settings.endpoint ? "" : "open"}>
         <summary>Settings</summary>
+        <label>Calendar name<input type="text" name="calendarName" placeholder="${defaultCalendarName}"></label>
         <label>Sheet script URL<input type="url" name="endpoint" placeholder="https://script.google.com/macros/s/…/exec"></label>
         ${settings.spreadsheetUrl ? `<a href="${encodeURI(settings.spreadsheetUrl)}" target="_blank" rel="noreferrer">Open your shifts sheet</a>` : ""}
       </details>
@@ -122,8 +124,8 @@
 
     try {
       const schedule = await FourthSchedule.fetchShifts()
-      const { endpoint } = await browser.storage.local.get(storageKeys)
-      const targets = [await syncTarget("Apple Calendar", { action: "syncCalendar", ...schedule })]
+      const { calendarName, endpoint } = await browser.storage.local.get(storageKeys)
+      const targets = [await syncTarget("Apple Calendar", { action: "syncCalendar", calendarName: calendarName || defaultCalendarName, ...schedule })]
 
       if (endpoint) targets.push(await syncTarget("Spreadsheet", { action: "syncSheet", endpoint, ...schedule }))
       await render(targets)

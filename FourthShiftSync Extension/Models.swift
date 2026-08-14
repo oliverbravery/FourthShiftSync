@@ -12,6 +12,7 @@ struct FourthShift: Codable {
 
 struct SyncRequest: Codable {
     let action: String
+    let calendarName: String
     let shifts: [FourthShift]
     let syncStart: String
     let syncEnd: String
