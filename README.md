@@ -6,19 +6,15 @@ Needs macOS 14, Safari 17 and Xcode 26 or later.
 
 ## Install
 
-Build it:
-
 ```sh
-xcodebuild -project FourthShiftSync.xcodeproj -scheme FourthShiftSync -configuration Release -derivedDataPath DerivedData build
+Scripts/install.sh
 ```
 
-Open it once so Safari picks up the extension:
+Run it again after any change. It builds, then closes Safari and swaps the app into `~/Applications`, dropping every other copy out of Launch Services on the way. Safari loads the extension from whichever copy Launch Services knows about, so a leftover build in `DerivedData` or in a worktree is what makes the extension vanish from Settings > Extensions.
 
-```sh
-open DerivedData/Build/Products/Release/FourthShiftSync.app
-```
+The build is signed locally, so Safari needs **Allow unsigned extensions** in Settings > Developer, and that resets every time Safari quits. The tab only appears once you tick **Show features for web developers** in Settings > Advanced. The script ticks the box for you if your terminal has Accessibility access in System Settings > Privacy & Security, and it needs Automation access in the same place to close Safari. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
 
-The build is signed locally, so Safari needs **Develop > Allow Unsigned Extensions**. That menu appears once you tick **Show features for web developers** in Settings > Advanced, and the setting resets every time Safari quits. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
+Safari 18.4 and later load Developer ID signed and notarised extensions without the unsigned step, which needs a paid Apple developer account.
 
 ## Use
 
