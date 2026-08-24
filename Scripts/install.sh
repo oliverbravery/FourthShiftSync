@@ -4,7 +4,7 @@ cd "${0:A:h}/.."
 
 extension_id=uk.co.oliverbravery.FourthShiftSync.Extension
 built_app=DerivedData/Build/Products/Release/FourthShiftSync.app
-installed_app=$HOME/Applications/FourthShiftSync.app
+installed_app=/Applications/FourthShiftSync.app
 lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
 
 extension_is_installed() {
@@ -27,7 +27,6 @@ pkill -x FourthShiftSync || :
 stale=(${(f)"$("$lsregister" -dump | sed -n 's/^[[:space:]]*path:[[:space:]]*//p' | sed 's/ (0x[0-9a-f]*)$//' | grep -E '/Fourth ?Shift ?Sync[^/]*\.app$' | sort -u)"}) || :
 for app in $stale; do "$lsregister" -u "$app"; done
 
-mkdir -p "$HOME/Applications"
 rm -rf "$installed_app"
 ditto "$built_app" "$installed_app"
 "$lsregister" -f "$installed_app"
