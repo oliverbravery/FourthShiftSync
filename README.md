@@ -12,9 +12,7 @@ Scripts/install.sh
 
 Run it again after any change. It builds, then closes Safari and swaps the app into `/Applications`, dropping every other copy out of Launch Services on the way. Safari loads the extension from whichever copy Launch Services knows about, so a leftover build in `DerivedData` or in a worktree is what makes the extension vanish from Settings > Extensions.
 
-The build is signed locally, so Safari needs **Allow unsigned extensions** in Settings > Developer, and that resets every time Safari quits. The tab only appears once you tick **Show features for web developers** in Settings > Advanced. The script ticks the box for you if your terminal has Accessibility access in System Settings > Privacy & Security, and it needs Automation access in the same place to close Safari. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
-
-Safari 18.4 and later load Developer ID signed and notarised extensions without the unsigned step, which needs a paid Apple developer account.
+Signing matters more than it looks. Safari silently drops any extension it can't compute a code signing dictionary for, which is all an ad-hoc build gives it, so add your Apple ID under Xcode Settings > Accounts and the free Apple Development certificate that comes with it is enough. The team is already set on the targets. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
 
 ## Use
 

@@ -42,5 +42,3 @@ if ! extension_is_installed; then
 fi
 
 open -a Safari
-osascript Scripts/allow-unsigned-extensions.applescript ||
-	echo 'Tick Allow unsigned extensions in Safari Settings > Developer, or grant your terminal Accessibility access in System Settings > Privacy & Security to have this done for you.'
