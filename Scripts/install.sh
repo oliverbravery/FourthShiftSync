@@ -11,7 +11,7 @@ extension_is_installed() {
 	pluginkit -m -vvv -p com.apple.Safari.web-extension -i "$extension_id" | grep -qF "$installed_app"
 }
 
-xcodebuild -project FourthShiftSync.xcodeproj -scheme FourthShiftSync -configuration Release -derivedDataPath DerivedData build
+xcodebuild -project FourthShiftSync.xcodeproj -scheme FourthShiftSync -configuration Release -derivedDataPath DerivedData -quiet build
 
 osascript -e 'if application "Safari" is running then tell application "Safari" to quit'
 for _ in {1..50}; do
