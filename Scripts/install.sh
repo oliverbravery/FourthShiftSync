@@ -11,7 +11,14 @@ extension_is_installed() {
 	pluginkit -m -vvv -p com.apple.Safari.web-extension -i "$extension_id" | grep -qF "$installed_app"
 }
 
-xcodebuild -project FourthShiftSync.xcodeproj -scheme FourthShiftSync -configuration Release -derivedDataPath DerivedData -quiet -allowProvisioningUpdates build
+signing_identity=$(security find-identity -v -p codesigning | sed -n '1s/.*"\(.*\)"$/\1/p')
+if [[ -z $signing_identity ]]; then
+	echo 'No signing certificate. Add your Apple ID under Xcode Settings > Accounts, then run this again.'
+	exit 1
+fi
+signing_team=$(security find-certificate -c "$signing_identity" -p | openssl x509 -noout -subject -nameopt sep_multiline | sed -n 's/^[[:space:]]*OU=//p')
+
+xcodebuild -project FourthShiftSync.xcodeproj -scheme FourthShiftSync -configuration Release -derivedDataPath DerivedData -quiet -allowProvisioningUpdates DEVELOPMENT_TEAM="$signing_team" build
 
 osascript -e 'if application "Safari" is running then tell application "Safari" to quit'
 for _ in {1..50}; do
