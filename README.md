@@ -12,7 +12,7 @@ Scripts/install.sh
 
 Run it again after any change. It builds, then closes Safari and swaps the app into `/Applications`, dropping every other copy out of Launch Services on the way. Safari loads the extension from whichever copy Launch Services knows about, so a leftover build in `DerivedData` or in a worktree is what makes the extension vanish from Settings > Extensions.
 
-Signing matters more than it looks. Safari silently drops any extension it can't compute a code signing dictionary for, which is all an ad-hoc build gives it, so add your Apple ID under Xcode Settings > Accounts and the free Apple Development certificate that comes with it is enough. The install script reads your team off that certificate. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
+Safari silently drops any extension it can't compute a code signing dictionary for, which is all an ad-hoc build gives it, so add your Apple ID under Xcode Settings > Accounts and the free Apple Development certificate that comes with it is enough. Then enable Fourth Shift Sync in Settings > Extensions and allow `api.fourth.com`.
 
 ## Use
 
@@ -30,7 +30,7 @@ Optional, and skipped until you set it up. The sheet itself is made for you, so 
 
 A spreadsheet named **Fourth Shifts** appears in your Drive, with the shift table, running totals and an hourly rate cell to fill in. The panel links to it. Nothing else in your Drive is touched, and the URL is the only secret, so keep it to yourself.
 
-Each sync covers today to a year ahead. It adds missing shifts in date order, copying the row above so your formulas carry down, fixes times and breaks that changed, and deletes rows Fourth no longer has. Only `Date`, `Start Time`, `End Time` and `Break (Mins)` are written, so a column like `Actual Pay` is left alone, and rows dated before today are never touched.
+Each sync covers today to a year ahead. It adds missing shifts in date order, copying the row above so your formulas carry down, fixes times and breaks that changed, and deletes rows Fourth no longer has.
 
 ## Test
 
